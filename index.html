@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevPort | Tech Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Ubuntu+Mono&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary: #00f0ff;
+            --secondary: #7928ca;
+            --dark: #0a0a0a;
+            --light: #f8f9fa;
+            --code-bg: #1e1e1e;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        .mono {
+            font-family: 'Ubuntu Mono', monospace;
+        }
+        
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.9) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary) !important;
+        }
+        
+        .nav-link {
+            position: relative;
+            margin: 0 10px;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        #hero {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="%2300f0ff" stroke-width="0.5"/></svg>');
+            background-size: 50px 50px;
+        }
+        
+        .typewriter {
+            border-right: 3px solid var(--primary);
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary); }
+        }
+        
+        .btn-neon {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            z-index: 1;
+        }
+        
+        .btn-neon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3);
+        }
+        
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            transition: all 0.3s;
+            z-index: -1;
+        }
+        
+        .btn-neon:hover::before {
+            left: 0;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            bottom: -10px;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .card-tech {
+            background: rgba(15, 15, 15, 0.7);
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .card-tech:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 240, 255, 0.15);
+        }
+        
+        .card-tech::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1) 0%, rgba(121, 40, 202, 0.1) 100%);
+            z-index: -1;
+        }
+        
+        .skill-badge {
+            background: rgba(15, 15, 15, 0.7);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 20px;
+            padding: 8px 15px;
+            margin: 5px;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .skill-badge:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: scale(1.05);
+        }
+        
+        .contact-input {
+            background: rgba(15, 15, 15, 0.7);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            color: var(--light) !important;
+        }
+        
+        .contact-input:focus {
+            background: rgba(15, 15, 15, 0.9);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(0, 240, 255, 0.25);
+        }
+        
+        .social-icon {
+            color: var(--light);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .code-block {
+            background: var(--code-bg);
+            border-left: 3px solid var(--primary);
+            padding: 15px;
+            border-radius: 0 5px 5px 0;
+            font-family: 'Ubuntu Mono', monospace;
+            position: relative;
+        }
+        
+        .code-block::before {
+            content: 'CODE';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: rgba(0, 240, 255, 0.5);
+        }
+        /* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Scroll progress indicator */
+.progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    z-index: 1000;
+}
+
+.progress-bar {
+    height: 4px;
+    background: var(--primary);
+    width: 0%;
+    transition: width 0.1s ease;
+}
+
+/* Section reveal animation */
+section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+section.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Parallax effect for hero */
+.hero-content {
+    will-change: transform;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #00c4d6;
+}
+/* Active nav link indicator */
+.nav-item.active .nav-link {
+    color: var(--primary) !important;
+}
+
+.nav-item.active .nav-link::after {
+    width: 100%;
+}
+
+/* Section dividers */
+section:not(#hero) {
+    border-top: 1px solid rgba(0, 240, 255, 0.1);
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Indicator -->
+<div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+</div>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <span class="mono">&lt;DevPort&gt;</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#hero">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="d-flex align-items-center" style="min-height: 100vh;">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h4 class="text-primary mono">Hi, my name is</h4>
+                    <h1 class="display-3 fw-bold mb-3">Damilola Adebayo</h1>
+                    <h2 class="display-6 mb-4 typewriter animate__animated animate__fadeIn">I build things for the web.</h2>
+                    <p class="lead mb-4">I'm a full-stack developer specializing in building (and occasionally designing) exceptional digital experiences.</p>
+                    <a href="#projects" class="btn btn-neon btn-lg px-4 py-2">View My Work</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5" style="background: linear-gradient(to bottom, var(--dark) 0%, #111 100%);">
+        <div class="container py-5">
+            <h2 class="text-center mb-5 section-title">About Me</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="code-block mb-4">
+                        <span class="text-primary">const</span> developer = {<br>
+                        &nbsp;&nbsp;name: <span class="text-warning">"Damilola Adebayo"</span>,<br>
+                        &nbsp;&nbsp;title: <span class="text-warning">"Full-Stack Developer"</span>,<br>
+                        &nbsp;&nbsp;location: <span class="text-warning">"Abuja, NG"</span>,<br>
+                        &nbsp;&nbsp;skills: [<span class="text-warning">"JavaScript"</span>, <span class="text-warning">"React"</span>, <span class="text-warning">"Node.js"</span>],<br>
+                        &nbsp;&nbsp;passion: <span class="text-warning">"Creating elegant solutions to complex problems"</span><br>
+                        };
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="images/EF7CC212-83D2-4CB0-AB7E-D8971959F515-98077d46-f5ff-41b8-bf6e-892f85570f37.jpg" class="img-fluid rounded-circle mb-3" alt="Damilola Adebayo">
+                    <p class="mb-4">Hello! I'm Damilola Adebayo, a passionate Full-Stack Developer with a love for creating innovative and efficient solutions. My journey in technology has been driven by a curiosity to learn and a desire to build impactful projects. I specialize in JavaScript, React, and Node.js.</p>
+                    <p class="mb-4">I am a final Year Student of Computer Engineering at Nile University of Nigeria, I joined the engineering team at Squarepoint Ltd and NNPCL where I work on a wide variety of interesting and meaningful projects on a daily basis.</p>
+                    <p class="mb-4">Here are a few technologies I've been working with recently:</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-chevron-right text-primary me-2"></i>JavaScript (ES6+)</li>
+                                <li class="mb-2"><i class="fas fa-chevron-right text-primary me-2"></i>React</li>
+                                <li class="mb-2"><i class="fas fa-chevron-right text-primary me-2"></i>Node.js</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-chevron-right text-primary me-2"></i>TypeScript</li>
+                                <li class="mb-2"><i class="fas fa-chevron-right text-primary me-2"></i>GraphQL</li>
+                                <li class="mb-2"><i class="fas fa-chevron-right text-primary me-2"></i>MongoDB</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="container py-5">
+            <h2 class="text-center mb-5 section-title">Featured Projects</h2>
+            <div class="row g-4">
+                <!-- Project 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card-tech h-100 p-4">
+                        <div class="d-flex justify-content-between mb-3">
+                            <i class="fas fa-folder text-primary" style="font-size: 2rem;"></i>
+                            <div>
+                                <a href="#" class="text-light me-2"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="#" class="text-light"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="h4 mb-3">E-Commerce Platform</h3>
+                        <p class="text-muted mb-4">A full-featured e-commerce platform with React frontend, Node.js backend, and Stripe integration for payments.</p>
+                        <div class="mt-auto">
+                            <span class="badge bg-dark me-2">React</span>
+                            <span class="badge bg-dark me-2">Node.js</span>
+                            <span class="badge bg-dark">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card-tech h-100 p-4">
+                        <div class="d-flex justify-content-between mb-3">
+                            <i class="fas fa-folder text-primary" style="font-size: 2rem;"></i>
+                            <div>
+                                <a href="#" class="text-light me-2"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="#" class="text-light"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="h4 mb-3">AI Content Generator</h3>
+                        <p class="text-muted mb-4">Web application that uses OpenAI's API to generate marketing content based on user prompts.</p>
+                        <div class="mt-auto">
+                            <span class="badge bg-dark me-2">Next.js</span>
+                            <span class="badge bg-dark me-2">TypeScript</span>
+                            <span class="badge bg-dark">Tailwind</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card-tech h-100 p-4">
+                        <div class="d-flex justify-content-between mb-3">
+                            <i class="fas fa-folder text-primary" style="font-size: 2rem;"></i>
+                            <div>
+                                <a href="#" class="text-light me-2"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="#" class="text-light"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="h4 mb-3">Dev Community App</h3>
+                        <p class="text-muted mb-4">A social platform for developers to share projects, ask questions, and connect with peers.</p>
+                        <div class="mt-auto">
+                            <span class="badge bg-dark me-2">Vue.js</span>
+                            <span class="badge bg-dark me-2">Firebase</span>
+                            <span class="badge bg-dark">GraphQL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="#" class="btn btn-neon">View More Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5" style="background: linear-gradient(to bottom, #111 0%, var(--dark) 100%);">
+        <div class="container py-5">
+            <h2 class="text-center mb-5 section-title">Skills & Technologies</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card-tech h-100 p-4">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-laptop-code text-primary" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h3 class="h4 text-center mb-3">Frontend</h3>
+                        <div class="text-center">
+                            <span class="skill-badge">React</span>
+                            <span class="skill-badge">Vue.js</span>
+                            <span class="skill-badge">TypeScript</span>
+                            <span class="skill-badge">HTML5/CSS3</span>
+                            <span class="skill-badge">Tailwind</span>
+                            <span class="skill-badge">Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card-tech h-100 p-4">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-server text-primary" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h3 class="h4 text-center mb-3">Backend</h3>
+                        <div class="text-center">
+                            <span class="skill-badge">Node.js</span>
+                            <span class="skill-badge">Express</span>
+                            <span class="skill-badge">Python</span>
+                            <span class="skill-badge">Django</span>
+                            <span class="skill-badge">GraphQL</span>
+                            <span class="skill-badge">REST APIs</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card-tech h-100 p-4">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-database text-primary" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h3 class="h4 text-center mb-3">Other</h3>
+                        <div class="text-center">
+                            <span class="skill-badge">MongoDB</span>
+                            <span class="skill-badge">PostgreSQL</span>
+                            <span class="skill-badge">Docker</span>
+                            <span class="skill-badge">AWS</span>
+                            <span class="skill-badge">Git</span>
+                            <span class="skill-badge">CI/CD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container py-5">
+            <h2 class="text-center mb-5 section-title">Get In Touch</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="text-center mb-5">
+                        <p class="lead">I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll do my best to get back to you!</p>
+                    </div>
+                    <form>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control contact-input py-3" placeholder="Name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control contact-input py-3" placeholder="Email" required>
+                            </div>
+                            <div class="col-12">
+                                <input type="text" class="form-control contact-input py-3" placeholder="Subject">
+                            </div>
+                            <div class="col-12">
+                                <textarea class="form-control contact-input py-3" rows="5" placeholder="Message" required></textarea>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-neon btn-lg px-5 py-3">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5" style="background-color: #0a0a0a;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mono text-muted">Designed & Built by Damilola Adebayo</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Add this to your existing <script> section
+document.addEventListener('DOMContentLoaded', function() {
+    // Scroll progress indicator
+    const progressBar = document.getElementById('progressBar');
+    
+    window.addEventListener('scroll', function() {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollProgress = (scrollTop / scrollHeight) * 100;
+        if (progressBar) { // Check if progressBar exists
+            progressBar.style.width = scrollProgress + '%';
+        }
+        
+        // Section reveal animation
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            // Ensure window.innerHeight is available, provide fallback if not (though standard)
+            const viewHeight = window.innerHeight || document.documentElement.clientHeight;
+            if (scrollTop >= sectionTop - viewHeight + sectionHeight / 3) {
+                section.classList.add('reveal');
+            }
+        });
+
+        // Highlight current section in nav
+        let ScollPosition = scrollTop; // Using existing scrollTop, aliased for clarity with snippet
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100; // Adjusted for fixed header
+            const sectionHeight = section.clientHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (ScollPosition >= sectionTop && ScollPosition < sectionTop + sectionHeight) {
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                const activeNavLink = document.querySelector(`.nav-item a[href="#${sectionId}"]`);
+                if (activeNavLink && activeNavLink.parentElement) { // Ensure element and parent exist
+                    activeNavLink.parentElement.classList.add('active');
+                }
+            } else {
+                // Optional: If you want to remove 'active' if no section matches (e.g., scrolled past all)
+                // This might conflict if the last section is active and user scrolls a bit past it.
+                // Consider the exact behavior desired. For now, only adding active.
+            }
+        });
+    });
+
+    // Trigger initial reveal for elements in viewport
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal');
+            }
+        });
+    }, {threshold: 0.1});
+
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+    });
+
+    // Parallax effect for hero
+    const heroContent = document.querySelector('.hero-content');
+    window.addEventListener('scroll', function() {
+        const scrollValue = window.scrollY;
+        heroContent.style.transform = 'translateY(' + scrollValue * 0.3 + 'px)';
+    });
+});
+        // Smooth scrolling for anchor links
+        // Enhanced smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 80, // Adjust for fixed header
+                behavior: 'smooth'
+            });
+            
+            // Update URL without jumping
+            history.pushState(null, null, targetId);
+        }
+    });
+});
+        
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(10, 10, 10, 0.95)';
+            } else {
+                navbar.style.backgroundColor = 'rgba(10, 10, 10, 0.9)';
+            }
+        });
+        
+        // Typewriter effect
+        const typewriterTexts = [
+            "I build things for the web.",
+            "I create modern web apps.",
+            "I solve problems with code.",
+            "I love what I do."
+        ];
+        let currentTextIndex = 0;
+        const typewriterElement = document.querySelector('.typewriter');
+        
+        function typeWriter(text, i, cb) {
+            if (i < text.length) {
+                typewriterElement.innerHTML = text.substring(0, i + 1);
+                setTimeout(() => typeWriter(text, i + 1, cb), 100);
+            } else if (typeof cb == 'function') {
+                setTimeout(cb, 2000);
+            }
+        }
+        
+        function startTextAnimation(i) {
+            if (i < typewriterTexts.length) {
+                typeWriter(typewriterTexts[i], 0, function() {
+                    startTextAnimation((i + 1) % typewriterTexts.length);
+                });
+            }
+        }
+        
+        // Start the animation
+        setTimeout(() => startTextAnimation(0), 1000);
+    </script>
+</body>
+</html>
