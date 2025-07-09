@@ -46,10 +46,3 @@ A personal portfolio website built with HTML, Bootstrap CSS, and JavaScript.
     *   Bootstrap 5
 *   JavaScript
 
-## Customization Tips
-
-*   **Colors**: Update Bootstrap theme colors or add your own color scheme in `style.css`.
-*   **Fonts**: Change fonts in `style.css` by updating the `font-family` property.
-*   **Images**: Use high-quality images for your projects and profile.
-*   **Animations**: Consider adding subtle animations with CSS or JavaScript for a more dynamic feel.
-*   **Contact Form**: For the contact form to actually send emails, you will need to integrate a backend service (e.g., Formspree, Netlify Forms, or a custom backend solution). 
